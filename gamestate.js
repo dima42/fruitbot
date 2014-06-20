@@ -30,6 +30,7 @@ var GameState = {
                 if (get_total_item_count(fruit) >= 
                     2*Math.max(get_my_item_count(fruit), 
                                get_opponent_item_count(fruit))){
+                    //ignore fruit that has already been decided
                     GameState.board[i][j] = fruit;
                 } else{
                     GameState.board[i][j] = 0;
@@ -44,12 +45,6 @@ var GameState = {
                                  get_opponent_item_count(i+1)]);
         }
 
-        //the following will be filled with move() and unfilled with unmove()
-        GameState.own_moves = new Array();
-        GameState.opp_moves = new Array();
-        GameState.own_taken = new Array();
-        GameState.opp_taken = new Array();
-        
 
     },
 

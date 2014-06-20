@@ -10,14 +10,14 @@ var TimeKeeper = {
         bestResult = EAST;
         bmbs = [EAST, 0];
         while( bmbs != undefined){
-            bestResult = bmbs[0];
+            bestResult = bmbs;
             GameState.reset();
             bmbs = Player.getBestMove(depth, start_time, alotted_time);         
             depth += 1;
         }
         trace("depth searched: "+String(depth-2));
         trace ("time used: "+String(new Date() - start_time));
-        LastMove = bestResult;
-        return bestResult;
+        trace("evaluation: "+String(bestResult[1]));
+        return bestResult[0];
     }
 }

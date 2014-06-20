@@ -27,10 +27,10 @@ var Player = {
             opp_moves_thus_far.push(GameState.opp_moves[i]);
         }
 
-        var best_score = -100000000;
+        var best_score = Number.NEGATIVE_INFINITY;
         var best_move = false;
         for (var i = 0; i < own_moves.length; i++){
-            var worst_score = 10000000;
+            var worst_score = Number.POSITIVE_INFINITY;
             var opp_best_move = false;
             for (var j = 0; j < opp_moves.length; j++){
                 GameState.move(own_moves[i], opp_moves[j])
@@ -42,11 +42,8 @@ var Player = {
                     if (bmbs == undefined)
                         return undefined;
                     this_score = bmbs[1];
-                    if (depth >= 2){
-                        //this helps avoid loops
-                        this_score += Math.pow(0.1, depth) * 
-                                      Scorer.getHeuristicScore();
-                    }
+                    this_score += Math.pow(0.1, depth) *
+                                  Scorer.getHeuristicScore()
                 }
                 else{
                     this_score = Scorer.getHeuristicScore();
