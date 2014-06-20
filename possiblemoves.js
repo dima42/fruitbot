@@ -13,11 +13,11 @@ possible moves mean missing some cases but deeper search tree.
 */
 
 var PossibleMoves = {
-    takeCheck: function(move_array, move_to_check){
+    takeCheck: function(move_array, moves_to_check){
         //checks if move_array contains move_to_check after the last TAKE
         var i = move_array.length;
         while (i > 0 && move_array[i-1] != TAKE){
-            if (move_array[i-1] == move_to_check)
+            if (moves_to_check.indexOf(move_array[i-1]) > -1)
                 return true;
             i -= 1;
         }
@@ -26,16 +26,16 @@ var PossibleMoves = {
 
     geoReset: function(position, candidate_move_array, previous_move_array){
         if (position[0] < (WIDTH - 1) )
-            if (!PossibleMoves.takeCheck(previous_move_array, WEST) )
+            if (!PossibleMoves.takeCheck(previous_move_array, [WEST, NORTH, SOUTH]) )
                 candidate_move_array.push(EAST);
         if (position[0] > 0 )
-            if (!PossibleMoves.takeCheck(previous_move_array, EAST) )
+            if (!PossibleMoves.takeCheck(previous_move_array, [EAST, NORTH, SOUTH]) )
                 candidate_move_array.push(WEST);
         if (position[1] < (HEIGHT - 1)) 
-            if (!PossibleMoves.takeCheck(previous_move_array, NORTH) )
+            if (!PossibleMoves.takeCheck(previous_move_array, [NORTH]) )
                 candidate_move_array.push(SOUTH);
         if (position[1] > 0)
-            if (!PossibleMoves.takeCheck(previous_move_array, SOUTH) )
+            if (!PossibleMoves.takeCheck(previous_move_array, [SOUTH]) )
                 candidate_move_array.push(NORTH);
     },
     

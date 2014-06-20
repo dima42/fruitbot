@@ -44,6 +44,7 @@ var Scorer = {
                 lose_cats += 0.5;
                 continue;
             }
+            /*
             for(var j = 0; j <= remaining_fruit; j++){
                 //j is how many fruits we will win
                 //assumes equal chance of winning each fruit for both bots
@@ -57,7 +58,7 @@ var Scorer = {
                 if ((this_fruit[1]+j)*2 == total_fruit)
                     continue;
                 score_adj = -prob;
-            }
+            }*/
             //score += score_adj;
             score += (this_fruit[1]-this_fruit[2])/total_fruit;  
         }
@@ -65,10 +66,14 @@ var Scorer = {
         if ((win_cats*2) > GameState.fruits.length){
             return Number.POSITIVE_INFINITY;
         }
+        if (win_cats*2 == GameState.fruits.length && 
+            lose_cats*2 == GameState.fruits.length)
+            return 0;
+        /*
         if ((lose_cats*2) > GameState.fruits.length){
             return Number.NEGATIVE_INFINITY;
         }
-        
+        */
         for (var i = 0; i < WIDTH; i++){
             for (var j = 0; j < HEIGHT; j++){
                 if (GameState.board[i][j] > 0){

@@ -19,19 +19,15 @@ var Player = {
             opp_moves.push(PossibleMoves.opp_candidate_moves[i]);
         }
 
-        
-        moves_thus_far = new Array();
-        opp_moves_thus_far = new Array();
-        for (var i = 0; i < GameState.own_moves.length; i++) {
-            moves_thus_far.push(GameState.own_moves[i]);
-            opp_moves_thus_far.push(GameState.opp_moves[i]);
-        }
-
         var best_score = Number.NEGATIVE_INFINITY;
-        var best_move = false;
+        if (own_moves.length == 0)
+            return [false, Number.NEGATIVE_INFINITY];
+        var best_move = own_moves[0];
         for (var i = 0; i < own_moves.length; i++){
             var worst_score = Number.POSITIVE_INFINITY;
-            var opp_best_move = false;
+            if (opp_moves.length == 0)
+                return[own_moves[0], Number.POSITIVE_INFINITY];
+            var opp_best_move = opp_moves[0];
             for (var j = 0; j < opp_moves.length; j++){
                 GameState.move(own_moves[i], opp_moves[j])
                 var this_score = undefined;
@@ -62,6 +58,9 @@ var Player = {
                 best_score = worst_score
                 best_move = own_moves[i];
             }
+        }
+        if (best_score < -10){
+            //trace();
         }
         return [best_move, best_score];
     },
