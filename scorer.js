@@ -43,8 +43,7 @@ var Scorer = {
                 win_cats += 0.5;
                 lose_cats += 0.5;
                 continue;
-            }
-            /*
+            }/*
             for(var j = 0; j <= remaining_fruit; j++){
                 //j is how many fruits we will win
                 //assumes equal chance of winning each fruit for both bots

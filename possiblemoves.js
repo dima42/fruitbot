@@ -13,30 +13,28 @@ possible moves mean missing some cases but deeper search tree.
 */
 
 var PossibleMoves = {
-    takeCheck: function(move_array, moves_to_check){
-        //checks if move_array contains move_to_check after the last TAKE
-        var i = move_array.length;
-        while (i > 0 && move_array[i-1] != TAKE){
-            if (moves_to_check.indexOf(move_array[i-1]) > -1)
-                return true;
-            i -= 1;
-        }
-        return false;
-    },
-
     geoReset: function(position, candidate_move_array, previous_move_array){
-        if (position[0] < (WIDTH - 1) )
-            if (!PossibleMoves.takeCheck(previous_move_array, [WEST, NORTH, SOUTH]) )
-                candidate_move_array.push(EAST);
-        if (position[0] > 0 )
-            if (!PossibleMoves.takeCheck(previous_move_array, [EAST, NORTH, SOUTH]) )
-                candidate_move_array.push(WEST);
-        if (position[1] < (HEIGHT - 1)) 
-            if (!PossibleMoves.takeCheck(previous_move_array, [NORTH]) )
-                candidate_move_array.push(SOUTH);
-        if (position[1] > 0)
-            if (!PossibleMoves.takeCheck(previous_move_array, [SOUTH]) )
-                candidate_move_array.push(NORTH);
+        //if previous move is empty/take, append north/south/east/west
+        //if previous move is east/west, append that one and north/south
+        //if previous move is north/south, append that one only
+        last_move = false;
+        if (previous_move_array.length > 0) {
+            last_move = previous_move_array[previous_move_array.length-1]
+            if (last_move == TAKE)
+                //treat same as empty
+                last_move = false;
+        }
+        if ((!last_move || last_move != SOUTH) && (position[1] > 0))
+            candidate_move_array.push(NORTH);
+        if ((!last_move || last_move != NORTH) && (position[1] < HEIGHT-1))
+            candidate_move_array.push(SOUTH);
+        if ((!last_move || (last_move != NORTH && last_move != SOUTH && 
+                            last_move != WEST)) && position[0] < WIDTH -1)
+            candidate_move_array.push(EAST);
+        if ((!last_move || (last_move != NORTH && last_move != SOUTH &&
+                            last_move != EAST)) && position[0] > 0)
+            candidate_move_array.push(WEST);
+    
     },
     
     reset: function(){
