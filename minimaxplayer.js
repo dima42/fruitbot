@@ -1,5 +1,7 @@
 /*
-getBestMove()
+getBestMove() returns the move for which the opponent's best reply is least
+effective.
+
 */
 
 var Player = {
@@ -21,12 +23,15 @@ var Player = {
 
         var best_score = Number.NEGATIVE_INFINITY;
         if (own_moves.length == 0)
-            return [false, Number.NEGATIVE_INFINITY];
+            return [PASS, Number.NEGATIVE_INFINITY];
         var best_move = own_moves[0];
         for (var i = 0; i < own_moves.length; i++){
             var worst_score = Number.POSITIVE_INFINITY;
             if (opp_moves.length == 0)
-                return[own_moves[0], Number.POSITIVE_INFINITY];
+                opp_moves.push(PASS);
+            //TODO this is not really correct.  just because a bot has
+            //0 legal moves based on its past because we heavily restricted
+            //the "possible" moves does not mean we have a forced win
             var opp_best_move = opp_moves[0];
             for (var j = 0; j < opp_moves.length; j++){
                 GameState.move(own_moves[i], opp_moves[j])
@@ -58,9 +63,6 @@ var Player = {
                 best_score = worst_score
                 best_move = own_moves[i];
             }
-        }
-        if (best_score < -10){
-            //trace();
         }
         return [best_move, best_score];
     },

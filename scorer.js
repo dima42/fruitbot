@@ -70,6 +70,10 @@ var Scorer = {
             return 0;
         /*
         if ((lose_cats*2) > GameState.fruits.length){
+            //this is commented out because sometimes we think a situation is
+            //a forced loss, but our opponent does not realise it;  in these 
+            //cases, we still want to make a decent move based on the distance
+            //logic
             return Number.NEGATIVE_INFINITY;
         }
         */
@@ -89,7 +93,7 @@ var Scorer = {
                         var opp_y = GameState.opp_position[1];
                         var own_dist = Math.abs(own_x - i)+Math.abs(own_y - j);
                         var opp_dist = Math.abs(opp_x - i)+Math.abs(opp_y - j);
-                        score += 0.1*(1/(own_dist+1) - 1/(opp_dist+1)) *  
+                        score += 0.5*(1/(own_dist+1) - 1/(opp_dist+1)) *  
                                      1/(to_win + diff+2);
                     }
                 }
