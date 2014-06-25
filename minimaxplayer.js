@@ -9,6 +9,7 @@ var Player = {
     getBestMove: function(depth, start_time, alotted_time) {
         if (new Date()-start_time >= alotted_time)
             return undefined;
+        //an undefined return starts a chain of these, and exits minimaxplayer
 
         PossibleMoves.reset();
         //we need to explicitly copy possible moves because of recursion
@@ -45,6 +46,9 @@ var Player = {
                     this_score = bmbs[1];
                     this_score += Math.pow(0.1, depth) *
                                   Scorer.getHeuristicScore()
+                    //the score is a weighted sum of score at every depth
+                    //the weights are highest at the deepest level and
+                    //reduced by 90% for each level shallower
                 }
                 else{
                     this_score = Scorer.getHeuristicScore();

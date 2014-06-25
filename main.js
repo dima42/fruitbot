@@ -1,3 +1,6 @@
+/*
+Public functions for the game controller to call.  new_game() is run once per game and make_move() is run each move.
+*/
 function new_game(){
     GameState.own_moves = new Array();
     GameState.opp_moves = new Array();

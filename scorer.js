@@ -1,17 +1,25 @@
 /*
-getHeuristicScore() provides a complicated and likely not good heuritic 
-position evaluation.
+getHeuristicScore() provides a complicated and not particularly tested 
+evaluation.
 
 TODO maybe it will be a lot more efficient if rather than calculating the 
 score, we keep it in memory and change with move/unmove.
 */
+
 var comp = 0;
+//comp keeps track of number of evaluations made.  Will be used for speed 
+//optimization.
+
+/*
+//We don't need factorials right now because we are not using the probabilistic
+//framework
 var factorials = new Array();
 factorials.push(1);
 factorials.push(1);
 for (var i = 2; i < 12; i++){
     factorials.push(factorials[i-1]*i);
 }
+*/
 
 var Scorer = {
 
@@ -44,6 +52,7 @@ var Scorer = {
                 lose_cats += 0.5;
                 continue;
             }/*
+            //probabilistic framework - not used right now
             for(var j = 0; j <= remaining_fruit; j++){
                 //j is how many fruits we will win
                 //assumes equal chance of winning each fruit for both bots
@@ -77,6 +86,8 @@ var Scorer = {
             return Number.NEGATIVE_INFINITY;
         }
         */
+
+        //we add distance logic if necessary, e.g. no forced win/tie yet
         for (var i = 0; i < WIDTH; i++){
             for (var j = 0; j < HEIGHT; j++){
                 if (GameState.board[i][j] > 0){
